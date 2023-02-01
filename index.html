@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.js"
+		integrity=
+"sha512-BbVEDjbqdN3Eow8+empLMrJlxXRj5nEitiCAK5A1pUr66+jLVejo3PmjIaucRnjlB0P9R3rBUs3g5jXc8ti+fQ=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer"></script>
+	<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.min.js"
+		integrity=
+"sha512-iphNRh6dPbeuPGIrQbCdbBF/qcqadKWLa35YPVfMZMHBSI6PLJh1om2xCTWhpVpmUyb4IvVS9iYnnYMkleVXLA=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer"></script>
+	<!-- for styling -->
+	<style>
+		table {
+			border: 1px solid black;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		input[type="button"] {
+			width: 100%;
+			padding: 20px 40px;
+			background-color: green;
+			color: white;
+			font-size: 24px;
+			font-weight: bold;
+			border: none;
+			border-radius: 5px;
+		}
+
+		input[type="text"] {
+			padding: 20px 30px;
+			font-size: 24px;
+			font-weight: bold;
+			border: none;
+			border-radius: 5px;
+			border: 2px solid black;
+		}
+        
+        input[type="remainder"] {
+			padding: 25px 5px;
+			font-size: 14px;
+			font-weight: bold;
+			border: none;
+			border-radius: 5px;
+			border: 2px solid black;
+		}
+  .container { 
+  height: 20px;
+  position: relative;
+
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+	</style>
+</head>
+<!-- create table -->
+
+<body style="background-color:powderblue;">
+    <div class="container">
+  <div class="center">
+    <select name="category" id="category" onchange="chooseCategory()" >
+                <option value="0" id="" selected disabled>Choose Year</option>
+                <option value="1" id="Y1">Year 1</option>
+                <option value="2" id="Y2">Year 2</option>
+                <option value="3" id="Y3">Year 3</option>
+               
+              </select>
+  </div>
+</div>
+	<table id="calcu">
+        
+         
+		<tr>
+           
+			<td colspan="3"><input type="text" id="result"></td>
+            <!--<td ><input type="remainder" id="remainder" readonly></td>-->
+			<!-- clr() function will call clr to clear all value -->
+			<td><input type="button" value="c" onclick="clr()" /> </td>
+		</tr>
+		<tr>
+			<!-- create button and assign value to each button -->
+			<!-- dis("1") will call function dis to display value -->
+			<td><input type="button" value="1" onclick="dispEq('1')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="2" onclick="dispEq('2')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="3" onclick="dispEq('3')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="/" id="div" onclick="dispEq(' / ')"
+						onkeydown="myFunction(event)"> </td>
+		</tr>
+		<tr>
+			<td><input type="button" value="4" onclick="dispEq('4')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="5" onclick="dispEq('5')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="6" onclick="dispEq('6')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="*" id="mul" onclick="dispEq(' * ')"
+						onkeydown="myFunction(event)"> </td>
+		</tr>
+		<tr>
+			<td><input type="button" value="7" onclick="dispEq('7')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="8" onclick="dispEq('8')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="9" onclick="dispEq('9')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="-" onclick="dispEq(' - ')"
+						onkeydown="myFunction(event)"> </td>
+		</tr>
+		<tr>
+			<td><input type="button" value="0" onclick="dispEq('0')"
+						onkeydown="myFunction(event)"> </td>
+			<td><input type="button" value="." onclick="dispEq('.')"
+						onkeydown="myFunction(event)"> </td>
+			<!-- solve function call function solve to evaluate value -->
+			<td><input type="button" value="=" onclick="createEquation()"> </td>
+
+			<td><input type="button" value="+" onclick="dispEq(' + ')"
+						onkeydown="myFunction(event)"> </td>
+		</tr>
+	</table>
+    <script src="ctrlChooseCategory.js"></script>
+    <script src="ctrlCreateEq.js"></script>
+	<script>
+		// Function that display value
+		function dispEq(val) {
+			document.getElementById("result").value += val
+		}
+
+		function myFunction(event) {
+			if (event.key == '0' || event.key == '1'
+				|| event.key == '2' || event.key == '3'
+				|| event.key == '4' || event.key == '5'
+				|| event.key == '6' || event.key == '7'
+				|| event.key == '8' || event.key == '9'
+				|| event.key == '+' || event.key == '-'
+				|| event.key == '*' || event.key == '/')
+				document.getElementById("result").value += event.key;
+		}
+
+		var cal = document.getElementById("calcu");
+		/*cal.onkeyup = function (event) {
+			if (event.keyCode === 13) {
+				console.log("Enter");
+				let x = document.getElementById("result").value
+				console.log(x);
+				solve();
+			}
+		}*/
+
+		// Function that evaluates the digit and return result
+		function createEquation() {
+            var cat = document.getElementById("category").value;
+			let x = document.getElementById("result").value
+            var equation = new ctrlCreateEq(x, cat);
+            var test = equation.validateEq();
+            
+		}
+
+		// Function that clear the display
+		function clr() {
+			document.getElementById("result").value = ""
+            document.getElementById("remainder").value = ""
+		}
+
+    function chooseCategory(){
+       
+    var cat = document.getElementById("category").value;
+    let add = document.getElementById("add");
+    let sub = document.getElementById("sub");
+    let mul = document.getElementById("mul");
+    let div = document.getElementById("div");
+    let rem = document.getElementById("remainder");
+  
+    var category1 = new ctrlChooseCategory(cat);
+        
+
+    if(document.getElementById("Y1").selected == true){
+        
+      mul.setAttribute("hidden", "hidden");
+      div.setAttribute("hidden", "hidden");
+      rem.setAttribute("hidden", "hidden");
+      
+    }
+    else if(document.getElementById("Y2").selected == true){
+      
+        mul.removeAttribute("hidden");
+        div.removeAttribute("hidden");
+        rem.removeAttribute("hidden");
+    }
+    else if(document.getElementById("Y3").selected == true){
+        mul.removeAttribute("hidden");
+        div.removeAttribute("hidden");
+        rem.setAttribute("hidden", "hidden");
+    }
+    
+  }
+	</script>
+</body>
+
+</html>
